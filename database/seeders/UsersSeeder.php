@@ -22,5 +22,7 @@ class UsersSeeder extends Seeder
         $user->email = 'admin@test.it';
         $user->password = Hash::make('password');
         $user->save();
+
+        User::factory()->count(300)->create();
     }
 }
