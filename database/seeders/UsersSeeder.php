@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,6 +22,6 @@ class UsersSeeder extends Seeder
         $user->password = Hash::make('password');
         $user->save();
 
-        User::factory()->count(300)->create();
+        User::factory()->count(50)->create();
     }
 }
