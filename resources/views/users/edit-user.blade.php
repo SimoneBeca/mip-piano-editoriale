@@ -16,7 +16,7 @@
 @endif
 <form method="POST" action="{{ route('users.update',['user'=>$user]) }}">
     @csrf
-    @method('PUT')
+    {{method_field('DELETE')}}
     <label for="name">First name:</label><br><br>
     <input type="text" id="name" name="name" value="{{$user->name}}"><br><br>
     <label for="surname">Last name:</label><br>

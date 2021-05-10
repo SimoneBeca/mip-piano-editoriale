@@ -23,8 +23,9 @@
 
 <!-- CONTENT -->
 <div class="content">
-    <table>
+    <table id="table">
         <caption>Lista utenti</caption>
+        <input class="custom-input" type="text">
         <tr>
             <th scope="col">Nome</th>
             <th scope="col">Cognome</th>
@@ -38,7 +39,15 @@
                 <td>{{$user->email}}</td>
                 <td>
                     <a href="{{ route('users.edit',['user' => $user]) }}">Modifica</a>
-                    <button>Elimina</button>
+
+
+
+
+                    <form action="{{ route('users.destroy',['user' => $user]) }}" method="POST">
+                        @csrf
+                        {{ method_field('DELETE') }}
+                        <button type="submit">Elimina</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
@@ -51,3 +60,9 @@
 <style>
 
 </style>
+
+<script>
+
+
+
+</script>

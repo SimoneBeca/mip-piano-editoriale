@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -16,6 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
+
+
         $users = User::all();
 
         return view('users/users')->with([
@@ -37,7 +40,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \App\Http\Requests\UserStoreRequest $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|RedirectResponse
      */
     public function store(Request $request)
     {
@@ -82,7 +85,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|RedirectResponse
      */
     public function edit($id)
     {
@@ -94,16 +97,16 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param User $user
+     * @return RedirectResponse
      */
     public function update(Request $request, User $user)
     {
         $rules = array(
             'name' => 'required|string',
             'surname' => 'required|string',
-            'email' => 'sometimes|required|email|unique:users,email,'.$user->id,
+            'email' => 'sometimes|required|email|unique:users,email,' . $user->id,
             'password' => 'sometimes|nullable|string',
         );
 
@@ -129,10 +132,11 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->action([UserController::class, 'index']);
     }
 }
